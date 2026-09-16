@@ -1,7 +1,3 @@
-# Python Learning Journal 🐍
-
-A repository containing Python projects developed progressively from the ground up.
-
 ## 💰 Personal Finance Decision Tool
 
 An interactive Python application focused on personal finance calculations and financial decision-making.
