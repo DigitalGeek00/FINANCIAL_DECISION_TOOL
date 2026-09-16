@@ -4,6 +4,12 @@ An interactive Python application focused on personal finance calculations and f
 
 The project is being developed progressively, with each version expanding its functionality and introducing new Python concepts.
 
+## Project Structure
+
+- `CODE/` — Python source files organized by project version
+- `LICENSE` — Project license
+- `README.md` — Project documentation
+
 ### Version 1 — `V1_Fundamentals.py`
 
 Basic personal finance calculations:
