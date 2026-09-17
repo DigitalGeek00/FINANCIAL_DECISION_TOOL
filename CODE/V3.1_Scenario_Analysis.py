@@ -28,8 +28,8 @@ def common_data_function():
             continue
         else:
             break
-    print(f"""Summary: Initial capital = {initial_capital:.2f} €;
-            Years invested: {time:.2f}""")
+    print(f"""SUMMARY: Initial capital = {initial_capital:.2f} €;
+            Years invested = {time:.2f}""")
     input('Press ENTER to continue')
     
     return initial_capital, time
@@ -47,8 +47,8 @@ def annual_rate_function():
             continue
         else:
             break
-    print(f"""Well done: 
-              Annual rate introduced is {annual_rate*100:.2f} %.
+    print(f""" 
+              Annual rate introduced is {annual_rate*100:.2f} %
     """)
     input('Press ENTER to continue.')
     return annual_rate
@@ -66,7 +66,7 @@ def ter_function():
     while True:
     
         try:
-            ter = float(input('Please, enter ter value as a float: '))
+            ter = float(input('Please, enter TER value as a float: '))
             print(f'TER introduced is = {ter:.2f}')
         except ValueError:
             print('Invalid value')
@@ -82,8 +82,8 @@ def scenario_type_function():
 
     while True:
         print("""SELECT SCENARIO TYPE: 
-                 1. INDIVIDUAL VALUES:
-                 2. RANGE: """)
+                 1. AS INDIVIDUAL VALUES:
+                 2. AS RANGE: """)
 
         scenario = input('Select an option: ')
 
@@ -128,7 +128,7 @@ def scenario_type_function():
 
             while True:
                 try:
-                    step_value = float(input('Enter step freq. value: ')) / 100
+                    step_value = float(input('Enter step freq. value (steps between range values): ')) / 100
                 except ValueError:
                     print('Incorrect value.') 
                     continue
@@ -153,7 +153,7 @@ def scenario_analysis(initial_capital, time, scenario_list):
     results = []
 
     for option in scenario_list:
-        compound_interests,  compound_final_capital = compound_interest(
+        compound_final_capital = compound_interest(
             initial_capital, 
             time, 
             option
@@ -161,14 +161,18 @@ def scenario_analysis(initial_capital, time, scenario_list):
         results.append(compound_final_capital)
 
     for i in range(len(options)):
-        print(f"For annual rate {options[i] * 100} %, result is {results [i]:.2f}")
+        print(f"""For annual rate {options[i] * 100} % 
+        result is {results[i][0]:.2f} gross profit 
+        & {results[i][1]:.2f} final capital.""")
 
 while True:
 
     print("======================================== FINANCIAL DECISION TOOL ========================================")
-    print("1. Investment analysis (compound interest, gross profit, gross return).")
-    print("2. Scenario analysis")
-    print("3. Exit")
+    print("1. Investment analysis (To calculate through compound interest, net profit of an investment).")
+    print("""2. Scenario analysis 
+    (Compare both or more annual rate scenarios for same capital and time invested. 
+    Results are gross profit and final capital.)""")
+    print("3. Exit (bye!)")
 
     option = input('Select an option: ')
 
@@ -184,6 +188,9 @@ while True:
         gross_return = gross_return_function(profit, initial_capital)
         print(f'Gross return on your investment is: {gross_return:.2f} %')
         input('Press ENTER to continue.')
+
+        input("""TER are taxes associated to some investment vehicles as index funds.
+                For our pourpose, minimum TER allowed is higher than 0.""")
 
         ter = ter_function()
         full_years = math.floor(time)
@@ -246,7 +253,6 @@ while True:
         scenario_list = scenario_type_function()
         scenario_analysis(initial_capital, time, scenario_list)
         
-
     elif option == '3':
         print('Thank you for using. Bye.')
         break
