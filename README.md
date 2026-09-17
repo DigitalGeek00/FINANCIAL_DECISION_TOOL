@@ -35,7 +35,7 @@ An interactive financial calculator including:
 * Reusable functions
 * Multiple return values
 
-### Version 3.0 — `V3.0_TER_&_TAX.py`
+### Version 3.0 — `V3.0_TER_&_Taxes.py`
 
 Expanded investment analysis including:
 
@@ -49,7 +49,7 @@ Expanded investment analysis including:
 * More modular financial calculation functions
 * Iterative calculations using `for` loops
 
-### Version 3.1 — `V3.1_SCENARIOS.py`
+### Version 3.1 — `V3.1_Scenario_Analysis.py`
 
 Introduced scenario analysis to compare different investment assumptions:
 
