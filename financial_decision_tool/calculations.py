@@ -139,3 +139,73 @@ def evolution_function(initial_capital, time, annual_rate):
         current_capital,
         accumulated_return
     )
+
+#DCA:
+def calculate_dca(initial_capital, contribution, time, annual_rate):
+    """
+    Calculate the final value of an investment using Dollar-Cost Averaging (DCA).
+
+    The calculation assumes a constant annual rate of return, converted
+    into an equivalent monthly rate. In real-world investments, returns
+    fluctuate over time and are not guaranteed.
+    """
+    time_months = math.floor(time * 12 + 0.5)
+    monthly_rate = ((1 + annual_rate) ** (1 / 12)) - 1
+    total_contribution = initial_capital + (contribution * time_months)
+    
+    initial_capital_growth = (
+        initial_capital * (1 + monthly_rate) ** time_months
+    ) - initial_capital
+    
+    contribution_growth = contribution * (
+        ((1 + monthly_rate) ** time_months - 1)
+        / monthly_rate
+    ) - (contribution * time_months)
+    
+    final_capital = (
+        total_contribution
+        + initial_capital_growth
+        + contribution_growth
+    )
+    investment_return = final_capital - total_contribution
+    roi = (investment_return / total_contribution) * 100
+    return (
+        total_contribution, 
+        initial_capital_growth, 
+        contribution_growth, 
+        final_capital, 
+        investment_return,
+        roi
+    )
+
+#Investment comparator:
+def comparator():
+    
+    results = []
+    i_capital = []
+    t_years = []
+    a_rate = []
+
+    casos = ['A', 'B']
+    
+    for i in range(2):
+        print(f'Enter data for CASE {casos[i]}')
+        def usr_data():
+            initial_capital = float(input("Enter initial_capital: "))
+            time = float(input("Enter time: "))
+            annual_rate = float(input("Enter annual_rate: ")) / 100
+            return initial_capital, time, annual_rate
+        
+        initial_capital, time, annual_rate = usr_data()
+        
+        i_capital.append(initial_capital)
+        t_years.append(time)
+        a_rate.append(annual_rate)
+        compound_f_c, _ = compound_interest(initial_capital, time, annual_rate)
+        results.append(compound_f_c)
+    return (
+        i_capital,
+        t_years,
+        a_rate,
+        results,
+    )
