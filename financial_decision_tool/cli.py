@@ -1,4 +1,4 @@
-from calculations import (simple_interest, compound_interest, inv_analysis, evolution_function)
+from calculations import (simple_interest, compound_interest, inv_analysis, evolution_function, calculate_dca, comparator)
 
 def menu():
     print("======================================== Financial Decision Tool - MENU ========================================")
@@ -74,6 +74,7 @@ def run_cli():
                     FINAL NET CAPITAL = {initial_capital + final_profit:.2f} €
 
                     """)
+            input('Press ENTER to return to menu.')
         elif option == '3':
             print('User selected "Annual evolution of an investment":')
             initial_capital, time, annual_rate = usr_data()
@@ -83,6 +84,41 @@ def run_cli():
             print(f'Final capital: {current_capital:.2f} € ') 
             print(f'Accumulated return: {accumulated_return:.2f} %')
             input('Press ENTER to return to menu.')
+        elif option == '4':
+            print('User selected "DCA (Dollar-Cost Averaging)":')
+            initial_capital, time, annual_rate = usr_data()
+            contribution = contribution_value()
+            total_contribution, initial_capital_growth, contribution_growth, final_capital, investment_return, roi = calculate_dca(initial_capital, contribution, time, annual_rate)
+
+            print(f"""
+            Initial capital growth is: {initial_capital_growth:.2f}
+            Contribution growth is: {contribution_growth:.2f}
+            Return on investment is: {investment_return:.2f}
+            """)
+        
+            print(f'This is the total capital aported: {total_contribution:.2f} €')
+            print(f'This is the investment final capital: {final_capital:.2f} €')
+            print(f'This is your investment return: {investment_return:.2f} €')
+            print(f"Return on invested capital: {roi:.2f}%")
+            input('Press ENTER to return menu.')
+        elif option == '5':
+            print('User selected "Investment comparator":')
+
+            i_capital, t_years, a_rate, results = comparator()   
+
+            print(f"""Summary:
+            CASE A:
+            Initial capital = {i_capital[0]:.2f} €
+            Time = {t_years[0]:.2f} years
+            Annual rate = {a_rate[0]:.2f} %
+
+            CASE B:
+            Initial capital = {i_capital[1]:.2f} €
+            Time = {t_years[1]:.2f} years
+            Annual rate = {a_rate[1]:.2f} %
+            
+            Results for case A are: {results[0]:.2f}€
+            Results for case B are: {results[1]:.2f}€""")         
 
 #Usr_data
 def usr_data():
@@ -96,6 +132,9 @@ def ter_value():
 def taxes_value():
     taxes = float(input("Enter TAXES value: ")) / 100
     return taxes
+def contribution_value():
+    contribution = float(input("Enter contribution value: "))
+    return contribution
 
 if __name__ == "__main__":
     run_cli()
