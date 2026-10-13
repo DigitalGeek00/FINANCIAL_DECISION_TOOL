@@ -1,103 +1,173 @@
-# Personal Finance Decision Tool
+# Financial Decision Tool
 
-An interactive Python application focused on personal finance calculations and financial decision-making.
+A Python command-line application for personal finance calculations and investment analysis.
 
-The project is being developed progressively, with each version expanding its functionality and introducing new Python concepts.
+The project has evolved progressively from individual Python scripts into a modular application, focusing on financial calculations, code organization, and software development best practices.
+
+It is an educational project designed to explore investment returns, fees, taxes, and financial scenarios while developing practical Python programming skills.
+
+## Features
+
+The project has explored the following financial tools throughout its development:
+
+- **Simple Interest:** Calculate interest earned over a specified period.
+- **Compound Interest:** Calculate investment growth through compounding.
+- **Investment Analysis:** Estimate investment performance after fees (TER) and taxes.
+- **Annual Investment Evolution:** Track capital growth and accumulated returns year by year.
+- **Dollar-Cost Averaging (DCA):** Planned for integration into the modular application.
+- **Investment Comparator:** Planned for integration into the modular application.
+
+Feature availability may differ between historical scripts and the current modular application.
 
 ## Project Structure
 
-`CODE/` — Python source files organized by project version
-`LICENSE` — Project license
-`README.md` — Project documentation
+```text
+FINANCIAL_DECISION_TOOL/
+├── CODE/
+│   ├── V1_Fundamentals.py
+│   ├── V2.0_Time_&_Interests.py
+│   ├── V2.5_Investment_Comparator.py
+│   ├── V3.0_TER_&_Taxes.py
+│   ├── V3.1_Scenario_Analysis.py
+│   └── V3.2_Annual_Evolution.py
+├── financial_decision_tool/
+│   ├── cli.py
+│   ├── calculations.py
+│   └── validators.py       # Planned
+├── tests/                  # Automated tests planned
+├── LICENSE
+└── README.md
+```
 
-## Version 1 — V1_Fundamentals.py
+The `CODE/` directory preserves the historical versions developed throughout the project.
 
-Basic personal finance calculations:
+The `financial_decision_tool/` directory contains the new modular application, separating user interaction from financial calculation logic.
 
-* Saving capacity
-* Saving rate
-* Uninvested savings
-* Functions and return values
-* Basic input validation
-* `while` loops and conditional logic
+Input validation and automated testing are planned improvements and may not yet be implemented.
 
-## Version 2.0 — V2.0_Time_&_Interests.py
+## Modular Architecture
 
-An interactive financial calculator including:
+The project is transitioning from standalone scripts to a more maintainable structure.
 
-* Simple interest
-* Compound interest
-* Dollar-Cost Averaging (DCA)
-* Monthly contributions
-* Total capital contributed
-* Investment returns
-* Input validation and error handling
-* Reusable functions
-* Multiple return values
+- **CLI module:** Handles menus, user input, and the presentation of results.
+- **Calculations module:** Contains reusable financial calculation functions.
+- **Validation module:** Planned component for validating user input and preventing invalid values.
+- **Tests:** Planned automated checks to verify calculation results and edge cases.
 
-## Version 2.5 — V2.5_Investment_Comparator.py
+This separation aims to improve readability, maintainability, and future extensibility.
 
-Introduced investment comparison between different cases:
+## Historical Development
 
-* Comparison of investment cases
-* Different initial capital, time horizons and annual rates
-* Final capital calculation
-* Result storage and comparison
-* Input validation and retry logic
+### V1 — Fundamentals
 
-## Version 3.0 — V3.0_TER_&_Taxes.py
+Introduced the basic concepts of personal finance and Python programming:
 
-Expanded investment analysis including:
+- Saving capacity and saving rate.
+- Uninvested savings.
+- Functions and return values.
+- Conditional logic and loops.
+- Basic input validation.
 
-* Compound investment growth
-* Gross profit and gross return
-* TER (Total Expense Ratio)
-* Annual fee calculations
-* Partial-year investment periods
-* Profit after TER
-* Simplified tax calculation
-* More modular financial calculation functions
-* Iterative calculations using `for` loops
+### V2.0 — Time and Interests
 
-## Version 3.1 — V3.1_Scenario_Analysis.py
+Expanded the application with investment calculations:
 
-Introduced scenario analysis to compare different investment assumptions:
+- Simple and compound interest.
+- Dollar-Cost Averaging (DCA).
+- Monthly contributions.
+- Total contributed capital and investment returns.
+- Reusable functions and multiple return values.
+- Input validation and error handling.
 
-* Individual rate scenarios
-* Rate ranges with configurable steps
-* Lists for storing scenario values
-* Iteration through scenarios using `for` loops
-* Reuse of compound interest calculations
-* Comparison of final capital under different annual rates
+### V2.5 — Investment Comparator
 
-## Version 3.2 — V3.2_Annual_Evolution.py
+Introduced comparisons between investment scenarios:
 
-Introduced temporal evolution analysis:
+- Different initial capital amounts.
+- Different investment periods and annual rates.
+- Final capital calculations.
+- Structured storage and comparison of results.
+- Input validation and retry logic.
 
-* Annual investment evolution
-* Compound return by year
-* Fractional investment periods
-* Year-to-capital dictionary
-* Code cleanup and minor refactoring
-* Removal of redundant code and calculations
-* Validation through different investment periods
+### V3.0 — TER and Taxes
 
-## Project Evolution
+Expanded investment analysis to account for fees and taxes:
 
-`V1 → V2.0 → V2.5 → V3.0 → V3.1 → V3.2 → ...`
+- Compound investment growth.
+- Gross profit and gross returns.
+- TER (Total Expense Ratio).
+- Annual fee calculations.
+- Fractional investment periods.
+- Profit after fees and simplified tax calculations.
+- Iterative calculations using loops.
 
-Each version represents a step in my Python learning process while progressively expanding the financial decision tool.
+### V3.1 — Scenario Analysis
 
-Future versions may progressively incorporate additional technologies such as:
+Introduced investment scenario analysis:
 
-* NumPy
-* Pandas
-* SQL
-* PostgreSQL
-* Docker
+- Individual annual rate scenarios.
+- Configurable rate ranges and increments.
+- Comparison of final capital under different assumptions.
+- Lists and loops for processing multiple scenarios.
+- Reuse of compound interest calculations.
 
-These technologies will be introduced as the project grows, allowing the application to evolve from a Python-based calculator into a more complete personal finance decision-making tool.
+### V3.2 — Annual Evolution
+
+Introduced a year-by-year view of investment growth:
+
+- Annual compound growth.
+- Capital evolution over time.
+- Fractional investment periods.
+- Year-to-capital dictionaries.
+- Code cleanup and minor refactoring.
+
+### Modular Application — Current Development Stage
+
+The project is moving towards a modular architecture:
+
+- Separation of the command-line interface and financial calculations.
+- Improved code organization and readability.
+- More consistent output presentation.
+- Preparation for dedicated input validation and automated tests.
+
+## Roadmap
+
+- [x] Develop the initial personal finance calculation scripts.
+- [x] Introduce investment analysis and scenario comparison in historical versions.
+- [x] Develop annual investment evolution in the historical version.
+- [x] Begin separating CLI logic from financial calculations.
+- [ ] Complete and verify the modular application.
+- [ ] Implement a dedicated input validation module.
+- [ ] Add automated tests in `tests/`.
+- [ ] Integrate DCA into the modular application.
+- [ ] Integrate the investment comparator into the modular application.
+- [ ] Improve documentation and expand test coverage.
+
+## How to Run
+
+Run the appropriate Python script from the project root, using a compatible Python 3 installation.
+
+For the modular application, the exact command depends on the package entry point and import structure. Update this section once the execution method has been finalized.
+
+## Technologies
+
+- Python 3
+- Git and GitHub
+
+Potential future technologies include NumPy, Pandas, SQL, PostgreSQL, and Docker as the project grows.
 
 ## Disclaimer
 
-This is an educational project. Financial calculations are intended for learning and experimentation and should not be considered professional financial advice.
+This project is intended for educational purposes, experimentation, and personal learning.
+
+Financial calculations use simplified assumptions and may not account for every real-world factor, including changing market conditions, fees, tax rules, or individual circumstances. Results should not be considered professional financial or investment advice.
+
+## License
+
+This project is released under the [CC0 1.0 Universal license](LICENSE).
+
+## About
+
+Financial Decision Tool is a personal Python project focused on learning software development through practical financial calculations and investment analysis.
+
+The project evolves incrementally, preserving historical versions while moving towards a more modular, testable, and maintainable application.
