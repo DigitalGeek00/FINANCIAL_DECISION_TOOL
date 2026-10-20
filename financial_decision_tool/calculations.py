@@ -62,7 +62,7 @@ def inv_analysis(initial_capital, time, annual_rate, ter, taxes):
         ter_total_effect includes the estimated impact of lost future
         growth due to fees; it is not simply the sum of TER deductions.
     """
-    compound_f_c, interests_c = compound_interest(initial_capital, time, annual_rate)
+    compound_f_c, _ = compound_interest(initial_capital, time, annual_rate)
     
     profit = compound_f_c - initial_capital
     full_years = math.floor(time)
@@ -70,6 +70,15 @@ def inv_analysis(initial_capital, time, annual_rate, ter, taxes):
 
     current_capital = initial_capital
     current_ter = 0
+
+# TER calculation model:
+# To keep the model simple, TER is estimated annually rather than daily.
+# For each full year, the investment grows first, then TER is calculated
+# on the resulting capital and deducted before the next year's calculation.
+# For a fractional year, growth is calculated for the corresponding period,
+# and TER is estimated proportionally to the fraction of the year.
+# This is a simplified approximation and does not reproduce the exact
+# daily fee accrual used by real investment funds.
 
     for i in range(full_years):
 
@@ -88,6 +97,11 @@ def inv_analysis(initial_capital, time, annual_rate, ter, taxes):
 
     profit_after_ter = current_capital - initial_capital
 
+# TER fees are deducted annually while the investment is held.
+# Taxes are calculated only at the end of the investment period,
+# when the investment is sold.
+# Therefore, taxes apply to the positive profit remaining after TER fees,
+# rather than to the gross profit before TER fees.
     tax_rate = taxes
     taxable_profit = max(0, profit_after_ter)
     tax_amount = taxable_profit * tax_rate
@@ -95,7 +109,6 @@ def inv_analysis(initial_capital, time, annual_rate, ter, taxes):
 
     capital_after_ter = initial_capital + profit_after_ter
     ter_total_effect = compound_f_c - capital_after_ter
-# Mide la diferencia de capital final respecto al escenario sin comisiones, incluyendo la rentabilidad perdida.
 
     return (
         tax_rate,
@@ -126,15 +139,12 @@ def evolution_function(initial_capital, time, annual_rate):
         fractional_return = current_capital * annual_rate * fractional_years
         current_capital += fractional_return
 
-    for year, capital in capital_evolution.items():
-        print (f'Year {year}: {capital:.2f} €')
 
-    if fractional_years > 0:
-        print (f'Final fractional period: {fractional_years:.2f} years')
 
     gross_return = current_capital - initial_capital
     accumulated_return = ((gross_return) / initial_capital) * 100
     return(
+        capital_evolution,
         gross_return,
         current_capital,
         accumulated_return
@@ -179,33 +189,31 @@ def calculate_dca(initial_capital, contribution, time, annual_rate):
     )
 
 #Investment comparator:
-def comparator():
-    
-    results = []
-    i_capital = []
-    t_years = []
-    a_rate = []
+def comparator(i_capital, t_years, a_rate):
 
-    casos = ['A', 'B']
-    
-    for i in range(2):
-        print(f'Enter data for CASE {casos[i]}')
-        def usr_data():
-            initial_capital = float(input("Enter initial_capital: "))
-            time = float(input("Enter time: "))
-            annual_rate = float(input("Enter annual_rate: ")) / 100
-            return initial_capital, time, annual_rate
-        
-        initial_capital, time, annual_rate = usr_data()
-        
-        i_capital.append(initial_capital)
-        t_years.append(time)
-        a_rate.append(annual_rate)
-        compound_f_c, _ = compound_interest(initial_capital, time, annual_rate)
+    results = []
+
+    for i in range(len(i_capital)):
+
+        compound_f_c, _ = compound_interest(
+            i_capital[i],
+            t_years[i],
+            a_rate[i],
+        )
         results.append(compound_f_c)
-    return (
-        i_capital,
-        t_years,
-        a_rate,
-        results,
-    )
+
+    return results
+
+#Scenario analysis:
+def scenario_analysis(initial_capital, time, rates):
+
+    results = []
+
+    for rate in rates:
+        compound_f_c, interests_c = compound_interest(
+            initial_capital, 
+            time, 
+            rate,
+            )
+        results.append((compound_f_c, interests_c))
+    return results
