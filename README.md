@@ -104,7 +104,7 @@ If the current imports or package configuration do not support this command yet,
 Planned development includes:
 
 - [X] Complete the integration of DCA and investment comparison into the modular application.
-- [ ] Add input validation and more robust error handling.
+- [X] Add input validation and more robust error handling.
 - [ ] Introduce automated tests for financial calculations.
 - [ ] Evaluate the use of libraries such as NumPy and Pandas where they provide clear benefits.
 - [ ] Explore data persistence and database integration if the project requirements justify it.
