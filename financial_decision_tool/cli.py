@@ -1,6 +1,19 @@
-from calculations import (usr_init_cap, usr_time, usr_annual_rate, ter_value, taxes_value,
-                          contribution_value, simple_interest, compound_interest, inv_analysis, 
-                          evolution_function, calculate_dca, comparator, scenario_list, scenario_analysis)
+from inputs import (usr_init_cap, 
+                    usr_time, 
+                    usr_annual_rate, 
+                    ter_value, 
+                    taxes_value,
+                    contribution_value,
+                    scenario_list,                     
+                    )
+
+from calculations import (simple_interest, 
+                          compound_interest, 
+                          inv_analysis, 
+                          evolution_function, 
+                          calculate_dca, 
+                          comparator, 
+                          scenario_analysis)
 
 def menu():
     print("======================================== Financial Decision Tool - MENU ========================================")
@@ -93,7 +106,10 @@ def run_cli():
             initial_capital = usr_init_cap()
             time = usr_time()
             annual_rate = usr_annual_rate()
-            gross_return, current_capital, accumulated_return = evolution_function(initial_capital, time, annual_rate)
+            capital_evolution, gross_return, current_capital, accumulated_return = evolution_function(initial_capital, time, annual_rate)
+                
+            for year, capital in capital_evolution.items():
+                print (f'Year {year}: {capital:.2f} €')
             
             print(f'Gross return: {gross_return:.2f} €')
             print(f'Final capital: {current_capital:.2f} € ') 
@@ -130,7 +146,23 @@ def run_cli():
                 elif menu_interno == '1':
                     print('User selected "Case A-B":')
 
-                    i_capital, t_years, a_rate, results = comparator()   
+                    i_capital = []
+                    t_years = []
+                    a_rate = []
+
+                    casos = ['A', 'B']
+    
+                    for caso in casos:
+                        print(f'Enter data for CASE {caso}')
+        
+                        initial_capital = usr_init_cap()
+                        time = usr_time()
+                        annual_rate = usr_annual_rate()
+
+                        i_capital.append(initial_capital)
+                        t_years.append(time)
+                        a_rate.append(annual_rate)
+                    results = comparator(i_capital, t_years, a_rate)
 
                     print(f"""Summary:
                     CASE A:
@@ -155,6 +187,7 @@ def run_cli():
                     initial_capital = usr_init_cap()
                     time = usr_time()
                     rates = scenario_list()
+                    rates.sort()
                     results = scenario_analysis(initial_capital, time, rates)
 
                     for rate, result in zip(rates, results):
@@ -170,6 +203,9 @@ def run_cli():
         elif option == '6':
             print("Thanks for using!")
             break
+        else:
+            print("Invalid option, try again.")
+            continue
 
 
 if __name__ == "__main__":
